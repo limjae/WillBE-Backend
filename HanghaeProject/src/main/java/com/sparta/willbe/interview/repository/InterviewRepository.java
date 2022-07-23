@@ -21,7 +21,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
     @Query(value = "select p from Interview p JOIN p.user u where p.isDone = true and p.isPublic = true and u.isDeleted = false Order By size(p.scraps) desc")
     Page<Interview> findAllOrderByScrapsCountDesc(Pageable pageable);
 
-    @Query(value = "select p from Interview p JOIN p.user u where p.isDone = true and p.isPublic = true and u.isDeleted = false and p.question.category = ?1 Order By size(p.scraps) desc")
+    @Query(value = "select p from Interview p JOIN p.user u where p.isDone = true and p.isPublic = true and u.isDeleted = false and p.question.category = :categoryEnum Order By size(p.scraps) desc")
     Page<Interview> findAllByQuestion_CategoryOrderByScrapsCountDesc(CategoryEnum categoryEnum, Pageable pageable);
 
     Page<Interview> findAllByIsDoneAndUser_IdAndUser_IsDeleted(Boolean isDone, Long userId, Boolean isDeleted, Pageable pageable);
