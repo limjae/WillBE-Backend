@@ -122,8 +122,8 @@ public class InterviewService {
         //5월 2째주 1등 -> 숫자만 추출
         // -> query did not return a unique result -> 최신꺼 1개만
         //WeeklyInterview Weekly = weeklyInterviewRepository.findByInterviewId(interview.getId());
-        WeeklyInterview Weekly = weeklyInterviewRepository.findTopByInterviewIdOrderByIdDesc(interview.getId());
-        if( Weekly != null){
+        WeeklyInterview Weekly = interview.getWeeklyInterviews().size() > 0  ? interview.getWeeklyInterviews().get(0) : null;
+        if (Weekly != null) {
             log.info("Weekly Interview 최신 top 1: {}", Weekly.getId());
         }
         boolean itsWeekly = Weekly != null;
@@ -159,6 +159,7 @@ public class InterviewService {
         }
 
         Set<Long> userScrapsId = getScrapedInterviewIds(user);
+
 
         for (Interview interview : interviews.getContent()) {
 
@@ -239,7 +240,7 @@ public class InterviewService {
 
         //인터뷰 삭제시 -> (변경)인터뷰 삭제, 위클리테이블은 유지
         //S3에서 영상 삭제
-        try{
+        try {
             amazonFullS3Client.deleteObject(bucket, interview.getVideoKey());
             log.info("S3에서 인터뷰(ID:{}) 영상 삭제 성공(VideoKey:{})", interviewId, interview.getVideoKey());
 

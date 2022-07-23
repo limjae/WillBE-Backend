@@ -31,11 +31,16 @@ public class WeeklyInterview extends Timestamped {
     @Column(name = "weekly_badge")
     private String weeklyBadge;
 
-    public WeeklyInterview(Long interviewId, Long ScrapCount, String badge, String weeklyBadge) {
-        this.interviewId = interviewId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORIGIN_INTERVIEW_ID")
+    private Interview interview;
+
+    public WeeklyInterview(Interview interview, Long ScrapCount, String badge, String weeklyBadge) {
+        this.interviewId = interview.getId();
         this.scrapCount = ScrapCount;
         this.badge = badge;
         this.weeklyBadge = weeklyBadge;
+        this.interview = interview;
     }
 
 }

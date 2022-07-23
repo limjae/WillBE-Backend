@@ -115,13 +115,13 @@ public class WeeklyInterviewConfig {
                     interview.updateBadge(badge[ranking-1]);
                     interview = interviewRepository.save(interview);
 
-                    WeeklyInterview weeklyInterviewEach = new WeeklyInterview(interview.getId(), weeklyInterview.getScrapCount(), badge[ranking-1], weeklyBadge);
+                    WeeklyInterview weeklyInterviewEach = new WeeklyInterview(interview, weeklyInterview.getScrapCount(), badge[ranking-1], weeklyBadge);
                     weeklyInterviewEach.setWeeklyBadge(weeklyBadge);
                     weeklyInterviewRepository.save(weeklyInterviewEach);
                 }else{
                     Interview interview = interviewRepository.findById(weeklyInterview.getInterviewId())
                             .orElseThrow(InterviewNotFoundException::new);
-                    WeeklyInterview weeklyInterviewEach = new WeeklyInterview(interview.getId(), weeklyInterview.getScrapCount(), "NONE", weeklyBadge);
+                    WeeklyInterview weeklyInterviewEach = new WeeklyInterview(interview, weeklyInterview.getScrapCount(), "NONE", weeklyBadge);
 
                     weeklyInterviewEach.setWeeklyBadge(weeklyBadge);
                     weeklyInterviewRepository.save(weeklyInterviewEach);
