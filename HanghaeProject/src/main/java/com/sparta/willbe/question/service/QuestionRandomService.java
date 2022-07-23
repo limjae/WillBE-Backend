@@ -20,7 +20,6 @@ public class QuestionRandomService {
     @Transactional
     public Question getRandomQuestion(CategoryEnum categoryEnum){
         List<Question> questions = questionRepository.findAllByCategory(categoryEnum);
-        questions = questionRepository.findAllByCategory(categoryEnum);
         return questions.get((int)(Math.random()*(questions.size())));
     }
 }

@@ -74,10 +74,9 @@ dependencies {
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 }
 
-//github actions 위해 주석처리
-//tasks.named('test') {
-//	useJUnitPlatform()
-//}
+tasks.named('test') {
+	useJUnitPlatform()
+}
 
 //빌드시 plain jar 파일은 만들어지지 않도록
 jar {

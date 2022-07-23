@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+        http.headers().frameOptions().disable();
+
         http
                 .httpBasic().disable()
                 .cors().configurationSource(corsConfigurationSource())
@@ -52,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/signup/**").permitAll()
                 .antMatchers("/signin/**").permitAll()
