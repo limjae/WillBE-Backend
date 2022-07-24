@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +26,12 @@ import java.util.Date;
 @Service
 public class JwtTokenProvider {
 
-    private static String SECRET_KEY = "4dW2Ri6fZjsSjgldfYe8soispI6QoqCnvi8oewMS2rvbeW5Swo";
+
+    private static String SECRET_KEY;
+    @Value("${jwt.token.secret-key}")
+    void setSecretKey(String SECRET_KEY){
+        this.SECRET_KEY = SECRET_KEY;
+    }
 
     private static final long SEC = 1000L;
     private static final long MINUTE = 60 * SEC;
